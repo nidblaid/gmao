@@ -42,7 +42,7 @@
       </field>
     </record>
 
-<!--     <record model="ir.ui.view" id="gmao.form">
+    <record model="ir.ui.view" id="gmao.form">
       <field name="name">Gmao view form</field>
       <field name="model">gmao.model</field>
       <field name="arch" type="xml">
@@ -68,7 +68,7 @@
         </form>
       </field>
     </record>
- -->
+
        
 
     <!-- actions opening views on models -->
