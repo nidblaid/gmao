@@ -1,0 +1,104 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="gmao.list">
+      <field name="name">Gmao view list</field>
+      <field name="model">gmao.model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="référence"/>
+          <field name="intervention_type" string="Type d'intevention"/>
+          <field name="material" string="Matériel à réparer"/>
+          <field name="vehicule" string="Véhicule"/>
+          <field name="miles" string="Kilométrage"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="gmao.kanban">
+      <field name="name">Gmao view kanban</field>
+      <field name="model">gmao.model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+          <field name="name" string="référence"/>
+          <field name="intervention_type"/>
+          <field name="material" string="Matériel à réparer"/>
+          <field name="vehicule" string="Véhicule"/>
+          <field name="miles" string="Kilométrage"/>
+          <templates>
+                  <t t-name="kanban-box">
+                             <div>
+                                 <h4><a type="open"><field name="name"/></a></h4>
+                                     <ul>
+                                         <li><field name="intervention_type" string="Type d'intevention"/></li>
+                                         <li><field name="material" string="Matériel à réparer"/></li>
+                                         <li><field name="vehicule" string="Véhicule"/></li>
+                                         <li><field name="miles" string="Kilométrage"/></li>
+                                     </ul>
+                             </div>
+                     </t>
+                 </templates>
+        </kanban>
+      </field>
+    </record>
+
+<!--     <record model="ir.ui.view" id="gmao.form">
+      <field name="name">Gmao view form</field>
+      <field name="model">gmao.model</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group name="top_menu">
+              <field name="name" string="Référence"/>
+              <group name="type_of_directory" string="Type de dossier">
+                <field name="intervention_type" string="Type d'intervention"/>
+              </group>
+            </group>
+            <group name="second_menu">
+              <group name="technical_infos" string="cordonnées techniques">
+                <field name="material" string="Matériel à réparer"/>
+                <field name="vehicule" string="Véhicule"/>
+                <field name="miles" string="Kilométrage"/>
+              </group>
+              <group name="user_infos" string="Divers">
+                <field name="responsable" string="Responsable"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+ -->
+       
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="gmao.action_window">
+      <field name="name">GMAO Model</field>
+      <field name="res_model">gmao.model</field>
+      <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+
+
+    <!-- Top menu item -->
+    <menuitem 
+      name="GMAO" 
+      id="gmao.menu_root"/>
+    <!-- menu categories -->
+    
+    <menuitem 
+      name="GMAO" 
+      id="gmao.menu_1" 
+      parent="gmao.menu_root" 
+      action="gmao.action_window"/>
+
+      
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="dashboard.menu_1_list" parent="dashboard.menu_1"
+              action="dashboard.action_window"/>
+    <menuitem name="Server to list" id="dashboard" parent="dashboard.menu_2"
+              action="dashboard.action_server"/>
+-->
+  </data>
+</odoo>
