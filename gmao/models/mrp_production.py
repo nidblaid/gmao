@@ -25,7 +25,23 @@ class StockPicking(models.Model):
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
-    expenses_count = fields.Integer()
+    expenses_count = fields.Integer(_compute="expenses_count")
+    
+    def get_expenses(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Dépenses',
+            'view_mode': 'tree',
+            'res_model': 'stock.picking',
+            'domain': [('vehicle_id', '=', self.id)],
+            'context': "{'create': False}"
+        }
+
+    def expenses_count(self):
+        for record in self:
+            record.expenses_count = self.env['stock.picking'].search_count(
+                [('vehicle_id', '=', self.id)])
 
     
     
