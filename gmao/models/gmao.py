@@ -13,10 +13,6 @@ class GmaoModel(models.Model):
     equipement = fields.Many2one('maintenance.equipment', string="Equipement")
     miles = fields.Float('Kilométrage (KM or Miles)')
     responsable = fields.Many2one('res.users', string="Responsable")
-    order_mrp = fields.One2many('mrp.production', 'gmao_id', string="Ordre de fabrication")
-    order_service = fields.One2many('fleet.vehicle.log.services', 'gmao_id', string="Ordre de fabrication")
-    order_maintenance = fields.One2many('maintenance.request', 'gmao_id', string="Ordre de fabrication")
-    
 
     
     
