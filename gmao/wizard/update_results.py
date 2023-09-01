@@ -34,7 +34,7 @@ class UpdateResults(models.TransientModel):
     
     def update_results(self):
         gmao_analytics = self.env['gmao.analytics']
-        vehicles = self.env['fleet.vehicle'].search()
+        vehicles = self.env['fleet.vehicle'].search([])
         raise UserError(vehicles)
 
         for vehicle in vehicles:
