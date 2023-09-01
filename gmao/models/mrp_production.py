@@ -28,7 +28,7 @@ class FleetVehicle(models.Model):
 
     pdr_outgoing = fields.Integer(compute='_pdr_outgoing_count')
     deliveries_vehicle_count = fields.Integer(compute='_deliveries_count')
-    pdr_incoming = fields.Integer(compute='_deliveries_count')
+    pdr_incoming = fields.Integer(compute='_pdr_incoming_count')
     
     def get_pdr_outgoing(self):
         self.ensure_one()
@@ -46,6 +46,23 @@ class FleetVehicle(models.Model):
             record.pdr_outgoing = self.env['stock.picking'].search_count(
                 [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')])
 
+    def get_pdr_incoming(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'pdr_incoming',
+            'view_mode': 'tree',
+            'res_model': 'stock.picking',
+            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'incoming')],
+            'context': "{'create': False}"
+        }
+
+    def _pdr_incoming_count(self):
+        for record in self:
+            record.pdr_incoming = self.env['stock.picking'].search_count(
+                [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'incoming')])
+            
+
     def get_deliveries(self):
         self.ensure_one()
         return {
@@ -53,7 +70,7 @@ class FleetVehicle(models.Model):
             'name': 'Déliveries',
             'view_mode': 'tree',
             'res_model': 'stock.picking',
-            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', False)],
+            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', False),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')],
             'context': "{'create': False}"
         }
 
