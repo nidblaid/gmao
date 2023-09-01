@@ -6,7 +6,7 @@ class GmaoModel(models.Model):
     _name = 'gmao.analytics'
     _description = 'Gmao Analytics'
 
-    name = many2one.Char('fleet.vehicle',string='Véhicule')
+    name = fields.Many2one('fleet.vehicle',string='Véhicule')
     pdr_outgoing = fields.Float('Pièces livrées', readonly="1")
     pdr_incoming = fields.Float('Pièces retournées', readonly="1")
     deliveries = fields.Float('Livraisons', readonly="1")
