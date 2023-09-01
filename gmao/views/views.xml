@@ -15,7 +15,7 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="gmao.analytics.list">
+    <record model="ir.ui.view" id="gmao.analytics_list">
       <field name="name">Gmao Analytics view list</field>
       <field name="model">gmao.analytics</field>
       <field name="arch" type="xml">
