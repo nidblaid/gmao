@@ -80,7 +80,7 @@
                                 <field string="Expenses" name="expenses_vehicle_count" widget="statinfo"/>
                             </button>
                             <button class="oe_stat_button" type="object" name="get_deliveries"
-                                icon="fa-car">
+                                icon="fa-truck">
                                 <field string="Deliveries" name="deliveries_vehicle_count" widget="statinfo"/>
                             </button>
                 </xpath>
