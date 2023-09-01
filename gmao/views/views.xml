@@ -87,6 +87,18 @@
             </field>
         </record>
 
+        <record id="view_stock_picking_custom" model="ir.ui.view">
+                <field name="name">stock.picking.custom.view</field>
+                <field name="model">stock.picking</field>
+                <field name="inherit_id" ref="stock.view_picking_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='picking_type_id']" position="after">
+                        <field name="vehicle_id" string="Véhicule"/>
+                        <field name="is_pdr" string="Is Pdr"/> 
+                    </xpath>
+                </field>
+            </record>
+
        
 
     <!-- actions opening views on models -->
