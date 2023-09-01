@@ -22,6 +22,13 @@ class StockPicking(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string="Véhicule")
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipement")
     is_pdr = fields.Boolean('is_pdr')
+    somme = fields.Float(string='Somme des coûts', compute='_compute_total_cost')
+
+    @api.depends('move_ids_without_package.cost')
+    def _compute_total_cost(self):
+        for picking in self:
+            total_cost = sum(move.cost for move in picking.move_ids_without_package)
+            picking.somme = total_cost
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
