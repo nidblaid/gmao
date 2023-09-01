@@ -76,7 +76,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//sheet/div[@name='button_box']" position="inside">
                             <button class="oe_stat_button" type="object" name="get_expenses"
-                                icon="fa-solid fa-screwdriver-wrench">
+                                icon="fa-money">
                                 <field string="Expenses" name="expenses_vehicle_count" widget="statinfo"/>
                             </button>
                 </xpath>
