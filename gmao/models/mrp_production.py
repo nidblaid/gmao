@@ -61,7 +61,7 @@ class FleetVehicle(models.Model):
                 ('state', '=', 'done'),
                 ('picking_type_id.code', '=', 'outgoing')
             ])  
-            costs = pickings.mapped('cost')
+            costs = pickings.mapped('somme')
             total_cost = sum(costs)
             record.pdr_outgoing = total_cost
 
