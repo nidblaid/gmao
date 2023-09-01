@@ -35,7 +35,7 @@ class UpdateResults(models.TransientModel):
         vehicles = self.env['fleet.vehicle'].search([])
 
         for vehicle in vehicles:
-            vehicle_record = gmao_analytics.search([])
+            vehicle_record = gmao_analytics.search(['name','=',vehicle.id])
             deliveries_domain = [('vehicle_id','=', vehicle.id),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing'),('create_date', '>=', self.start_date),('create_date', '>=', self.start_date)]
             repairs_domain  = [('vehicle_id','=', vehicle.id),('state','=', 'done'),('create_date', '>=', self.start_date),('create_date', '>=', self.start_date)]
                 
