@@ -23,6 +23,11 @@ class StockPicking(models.Model):
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipement")
     is_pdr = fields.Boolean('is_pdr')
 
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    cost = fields.Float('Cost', related='product_id.standard_price')
+
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
