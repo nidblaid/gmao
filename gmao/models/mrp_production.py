@@ -15,6 +15,27 @@ class RepairOrder(models.Model):
     _inherit = 'repair.order'
 
     gmao_id = fields.Many2one('gmao.model', string="Gmao ID")
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle ID")
+
+    def get_pdr_outgoing(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Pièces livrées',
+            'view_mode': 'tree',
+            'res_model': 'repair.order',
+            'domain': [('vehicle_id', '=', self.id)],
+            'context': "{'create': False}"
+        }
+
+    def _pdr_outgoing_count(self):
+        for record in self:
+            repairs = self.env['repair.order'].search([
+                ('vehicle_id', '=', self.id)
+            ])  
+            costs = repairs.mapped('amount_total')
+            total_cost = sum(costs)
+            record.pdr_outgoing = total_cost
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -42,52 +63,7 @@ class FleetVehicle(models.Model):
     deliveries_vehicle_count = fields.Integer(compute='_deliveries_count')
     pdr_incoming = fields.Integer(compute='_pdr_incoming_count')
     
-    def get_pdr_outgoing(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Pièces livrées',
-            'view_mode': 'tree',
-            'res_model': 'stock.picking',
-            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')],
-            'context': "{'create': False}"
-        }
-
-    def _pdr_outgoing_count(self):
-        for record in self:
-            pickings = self.env['stock.picking'].search([
-                ('vehicle_id', '=', self.id),
-                ('is_pdr', '=', True),
-                ('state', '=', 'done'),
-                ('picking_type_id.code', '=', 'outgoing')
-            ])  
-            costs = pickings.mapped('somme')
-            total_cost = sum(costs)
-            record.pdr_outgoing = total_cost
-
-    def get_pdr_incoming(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Pièces retournées',
-            'view_mode': 'tree',
-            'res_model': 'stock.picking',
-            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'incoming')],
-            'context': "{'create': False}"
-        }
-
-    def _pdr_incoming_count(self):
-        for record in self:
-            pickings = self.env['stock.picking'].search([
-                ('vehicle_id', '=', self.id),
-                ('is_pdr', '=', True),
-                ('state', '=', 'done'),
-                ('picking_type_id.code', '=', 'incoming')
-            ])  
-            costs = pickings.mapped('somme')
-            total_cost = sum(costs)
-            record.pdr_incoming = total_cost
-            
+      
 
     def get_deliveries(self):
         self.ensure_one()
