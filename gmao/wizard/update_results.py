@@ -39,7 +39,7 @@ class UpdateResults(models.TransientModel):
             deliveries_domain = [('vehicle_id','=', vehicle.id),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')]
             repairs_domain  = [('vehicle_id','=', vehicle.id),('state','=', 'done')]
             
-            if self.start_date and end_date :
+            if self.start_date and self.end_date :
                 deliveries_domain.append(('create_date', '>=', self.start_date),('create_date', '<=', self.end_date))
                 repairs_domain.append(('create_date', '>=', self.start_date),('create_date', '<=', self.end_date))
                 
