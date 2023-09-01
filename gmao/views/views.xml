@@ -95,10 +95,6 @@
                                 icon="fa-truck">
                                 <field string="Pièces Livrées" name="pdr_outgoing" widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" type="object" name="get_pdr_incoming"
-                                icon="fa-retweet">
-                                <field string="Pièces Retournées" name="pdr_incoming" widget="statinfo"/>
-                            </button>
                             <button class="oe_stat_button" type="object" name="get_deliveries"
                                 icon="fa-truck">
                                 <field string="Livraisons" name="deliveries_vehicle_count" widget="statinfo"/>
