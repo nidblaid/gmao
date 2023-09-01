@@ -9,8 +9,6 @@
                         <field name="start_date" required="1"/>
                         <field name="end_date" stirng="Today"/>
                         <field name="periode"/>
-                        <field name="country_id"/>
-                        <field name="source_id"/>
                     </group>
                     <footer>
                         <button name="update_results" string="Submit" type="object" class="btn-primary" data-hotkey="q"/>
