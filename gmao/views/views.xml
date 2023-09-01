@@ -19,7 +19,7 @@
       <field name="name">Gmao Analytics view list</field>
       <field name="model">gmao.analytics</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree editable="top">
           <field name="name"/>
           <field name="pdr_incoming"/>
           <field name="pdr_outgoing"/>
