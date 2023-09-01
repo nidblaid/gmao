@@ -25,7 +25,7 @@ class StockPicking(models.Model):
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
-    expenses_vehicle_count = fields.Integer()
+    expenses_vehicle_count = fields.Integer(_compute='expenses_count')
     
     def get_expenses(self):
         self.ensure_one()
