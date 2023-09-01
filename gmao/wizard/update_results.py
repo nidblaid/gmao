@@ -18,8 +18,6 @@ class UpdateResults(models.TransientModel):
         ('last_90_days', 'Derniers 90 jours'),
         # Ajoutez d'autres options de période ici
     ], string='Période')
-    country_id = fields.Many2one('res.country', string='Country')
-    source_id = fields.Many2one('utm.source')
 
     @api.onchange('periode')
     def update_start_date(self):
@@ -35,11 +33,17 @@ class UpdateResults(models.TransientModel):
     def update_results(self):
         gmao_analytics = self.env['gmao.analytics']
         vehicles = self.env['fleet.vehicle'].search([])
+        deliveries_domain = [('vehicle_id','=', vehicle.id),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')]]
+        repairs_domain  = [('vehicle_id','=', vehicle.id),('state','=', 'done')]
+        
+        if self.start_date and end_date :
+            deliveries_domain.append(('create_date', '>=', self.start_date),('create_date', '<=', self.end_date))
+            repairs_domain.append(('create_date', '>=', self.start_date),('create_date', '<=', self.end_date))
 
         for vehicle in vehicles:
-            vehicle_record = gmao_analytics.search([('name','=', vehicle.id)])
-            total_deliveries = self.env['stock.picking'].search([('vehicle_id','=', vehicle.id)]).mapped('somme')
-            total_pdr_outgoing = self.env['repair.order'].search([('vehicle_id','=', vehicle.id),('vehicle_id','=', vehicle.id)]).mapped('amount_total')
+            vehicle_record = gmao_analytics.search()
+            total_deliveries = self.env['stock.picking'].search(deliveries_domain).mapped('somme')
+            total_pdr_outgoing = self.env['repair.order'].search(repairs_domain).mapped('amount_total')
         
             values = {
                 'deliveries': sum(total_deliveries),
