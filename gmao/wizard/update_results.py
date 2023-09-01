@@ -39,9 +39,12 @@ class UpdateResults(models.TransientModel):
         for vehicle in vehicles:
             vehicle_record = gmao_analytics.search([('name','=', vehicle.id)])
             total_deliveries = self.env['stock.picking'].search([('vehicle_id','=', vehicle.id)]).mapped('somme')
+            total_pdr_outgoing = self.env['repair.order'].search([('vehicle_id','=', vehicle.id),('vehicle_id','=', vehicle.id)]).mapped('amount_total')
         
             values = {
                 'deliveries': sum(total_deliveries),
+                'pdr_outgoing': sum(total_pdr_outgoing),
+                
             }
             if vehicle_record:
                 gmao_analytics.write(values)
