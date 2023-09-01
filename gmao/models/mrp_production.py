@@ -27,6 +27,7 @@ class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
     expenses_vehicle_count = fields.Integer(compute='_expenses_count')
+    deliveries_vehicle_count = fields.Integer(compute='_deliveries_count')
     
     def get_expenses(self):
         self.ensure_one()
@@ -43,6 +44,22 @@ class FleetVehicle(models.Model):
         for record in self:
             record.expenses_vehicle_count = self.env['stock.picking'].search_count(
                 [('vehicle_id', '=', self.id),('is_pdr', '=', True)])
+
+    def get_deliveries(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Déliveries',
+            'view_mode': 'tree',
+            'res_model': 'stock.picking',
+            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', False)],
+            'context': "{'create': False}"
+        }
+
+    def _deliveries_count(self):
+        for record in self:
+            record.deliveries_vehicle_count = self.env['stock.picking'].search_count(
+                [('vehicle_id', '=', self.id),('is_pdr', '=', False)])
 
     
     
