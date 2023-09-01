@@ -34,7 +34,7 @@ class FleetVehicle(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Dépenses',
+            'name': 'Pièces livrées',
             'view_mode': 'tree',
             'res_model': 'stock.picking',
             'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')],
@@ -50,7 +50,7 @@ class FleetVehicle(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'pdr_incoming',
+            'name': 'Pièces retournées',
             'view_mode': 'tree',
             'res_model': 'stock.picking',
             'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'incoming')],
@@ -67,7 +67,7 @@ class FleetVehicle(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Déliveries',
+            'name': 'Livraisons',
             'view_mode': 'tree',
             'res_model': 'stock.picking',
             'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', False),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')],
