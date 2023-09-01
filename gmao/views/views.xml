@@ -20,6 +20,9 @@
       <field name="model">gmao.analytics</field>
       <field name="arch" type="xml">
         <tree editable="top">
+          <header>
+                <button name="%(gmao.update_results)d" string="Update Results" class="btn-primary" type="action" attrs="{'always_visible': True}"/>
+            </header>
           <field name="name"/>
           <field name="pdr_incoming"/>
           <field name="pdr_outgoing"/>
