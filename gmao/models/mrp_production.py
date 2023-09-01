@@ -38,7 +38,7 @@ class FleetVehicle(models.Model):
             'context': "{'create': False}"
         }
 
-    def expenses_count(self):
+    def _expenses_count(self):
         for record in self:
             record.expenses_vehicle_count = self.env['stock.picking'].search_count(
                 [('vehicle_id', '=', self.id)])
