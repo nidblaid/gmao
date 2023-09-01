@@ -74,7 +74,7 @@
             <field name="model">fleet.vehicle</field>
             <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet" position="inside">
+                <xpath expr="//sheet/div[@name='button_box']/button[last()]" position="after">
                         <div name="button_box" position="inside">
                             <button class="oe_stat_button" type="object" name="get_expenses"
                                 icon="fa-expense">
