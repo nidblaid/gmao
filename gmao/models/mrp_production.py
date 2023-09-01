@@ -35,7 +35,7 @@ class FleetVehicle(models.Model):
             'name': 'Dépenses',
             'view_mode': 'tree',
             'res_model': 'stock.picking',
-            'domain': [('vehicle_id', '=', self.id)],
+            'domain': [('vehicle_id', '=', self.id),('is_pdr', '=', True)],
             'context': "{'create': False}"
         }
 
