@@ -35,6 +35,7 @@ class UpdateResults(models.TransientModel):
     def update_results(self):
         gmao_analytics = self.env['gmao.analytics']
         vehicles = self.env['fleet.vehicle']
+        raise UserError(vehicles)
 
         for vehicle in vehicles:
             total_deliveries = self.env['stock.picking'].search(['vehicle_id','=', vehcile.id,]).mapped('somme')
