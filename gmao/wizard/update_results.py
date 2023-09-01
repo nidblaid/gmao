@@ -37,7 +37,7 @@ class UpdateResults(models.TransientModel):
         vehicles = self.env['fleet.vehicle'].search([])
 
         for vehicle in vehicles:
-            total_deliveries = self.env['stock.picking'].search(['vehicle_id','=', vehicle.id,]).mapped('somme')
+            total_deliveries = self.env['stock.picking'].search([('vehicle_id','=', vehicle.id)]).mapped('somme')
         
             values = {
                 'deliveries': sum(total_deliveries),
