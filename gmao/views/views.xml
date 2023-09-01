@@ -77,7 +77,7 @@
                 <xpath expr="//sheet/div[@name='button_box']" position="inside">
                             <button class="oe_stat_button" type="object" name="get_expenses"
                                 icon="fa-money">
-                                <field string="Pièces Livrées" name="expenses_vehicle_count" widget="statinfo"/>
+                                <field string="Pièces Livrées" name="_pdr_outgoing_count" widget="statinfo"/>
                             </button>
                             <button class="oe_stat_button" type="object" name="get_deliveries"
                                 icon="fa-truck">
