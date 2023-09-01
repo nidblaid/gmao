@@ -21,6 +21,7 @@ class StockPicking(models.Model):
 
     vehicle_id = fields.Many2one('fleet.vehicle', string="Véhicule")
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipement")
+    is_pdr = fields.Boolean('is_pdr')
 
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
@@ -41,7 +42,7 @@ class FleetVehicle(models.Model):
     def _expenses_count(self):
         for record in self:
             record.expenses_vehicle_count = self.env['stock.picking'].search_count(
-                [('vehicle_id', '=', self.id)])
+                [('vehicle_id', '=', self.id),('is_pdr', '=', True)])
 
     
     
