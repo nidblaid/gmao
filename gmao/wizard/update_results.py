@@ -33,7 +33,7 @@ class UpdateResults(models.TransientModel):
     def update_results(self):
         gmao_analytics = self.env['gmao.analytics']
         vehicles = self.env['fleet.vehicle'].search([])
-        deliveries_domain = [('vehicle_id','=', vehicle.id),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')]]
+        deliveries_domain = [('vehicle_id','=', vehicle.id),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')]
         repairs_domain  = [('vehicle_id','=', vehicle.id),('state','=', 'done')]
         
         if self.start_date and end_date :
