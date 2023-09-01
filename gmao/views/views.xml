@@ -148,7 +148,7 @@
       action="gmao.action_window"/>
     <menuitem 
       name="GMAO Analytics" 
-      id="gmao.analytics.menu_1" 
+      id="gmao.analytics_menu_1" 
       parent="gmao.menu_root" 
       action="gmao.analytics_action_window"/>
 
