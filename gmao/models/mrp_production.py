@@ -54,9 +54,16 @@ class FleetVehicle(models.Model):
         }
 
     def _pdr_outgoing_count(self):
-        for record in self:
-            record.pdr_outgoing = self.env['stock.picking'].search_count(
-                [('vehicle_id', '=', self.id),('is_pdr', '=', True),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')])
+    for record in self:
+        pickings = self.env['stock.picking'].search([
+            ('vehicle_id', '=', self.id),
+            ('is_pdr', '=', True),
+            ('state', '=', 'done'),
+            ('picking_type_id.code', '=', 'outgoing')
+        ])  
+        costs = pickings.mapped('pdr_cost')
+        total_cost = sum(costs)
+        record.pdr_outgoing = total_cost
 
     def get_pdr_incoming(self):
         self.ensure_one()
