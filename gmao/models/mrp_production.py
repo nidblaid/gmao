@@ -17,26 +17,6 @@ class RepairOrder(models.Model):
     gmao_id = fields.Many2one('gmao.model', string="Gmao ID")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle ID")
 
-    def get_pdr_outgoing(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Pièces livrées',
-            'view_mode': 'tree',
-            'res_model': 'repair.order',
-            'domain': [('vehicle_id', '=', self.id)],
-            'context': "{'create': False}"
-        }
-
-    def _pdr_outgoing_count(self):
-        for record in self:
-            repairs = self.env['repair.order'].search([
-                ('vehicle_id', '=', self.id)
-            ])  
-            costs = repairs.mapped('amount_total')
-            total_cost = sum(costs)
-            record.pdr_outgoing = total_cost
-
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
@@ -62,6 +42,26 @@ class FleetVehicle(models.Model):
     pdr_outgoing = fields.Integer(compute='_pdr_outgoing_count')
     deliveries_vehicle_count = fields.Integer(compute='_deliveries_count')
     pdr_incoming = fields.Integer(compute='_pdr_incoming_count')
+
+    def get_pdr_outgoing(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Pièces livrées',
+            'view_mode': 'tree',
+            'res_model': 'repair.order',
+            'domain': [('vehicle_id', '=', self.id)],
+            'context': "{'create': False}"
+        }
+
+    def _pdr_outgoing_count(self):
+        for record in self:
+            repairs = self.env['repair.order'].search([
+                ('vehicle_id', '=', self.id)
+            ])  
+            costs = repairs.mapped('amount_total')
+            total_cost = sum(costs)
+            record.pdr_outgoing = total_cost
     
       
 
