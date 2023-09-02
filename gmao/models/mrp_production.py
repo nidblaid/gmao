@@ -56,13 +56,13 @@ class FleetVehicle(models.Model):
             'name': 'Pièces livrées',
             'view_mode': 'tree',
             'res_model': 'repair.order',
-            'domain': [('vehicle_id','=', vehicle.id),('state','=', 'done')],
+            'domain': [('vehicle_id','=', self.id),('state','=', 'done')],
             'context': "{'create': False}"
         }
 
     def _pdr_outgoing_count(self):
         for record in self:
-            repairs = self.env['repair.order'].search([('vehicle_id','=', vehicle.id),('state','=', 'done')])  
+            repairs = self.env['repair.order'].search([('vehicle_id','=', self.id),('state','=', 'done')])  
             costs = repairs.mapped('amount_total')
             total_cost = sum(costs)
             record.pdr_outgoing = total_cost
