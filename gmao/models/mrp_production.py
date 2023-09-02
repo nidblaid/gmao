@@ -56,15 +56,13 @@ class FleetVehicle(models.Model):
             'name': 'Pièces livrées',
             'view_mode': 'tree',
             'res_model': 'repair.order',
-            'domain': [('vehicle_id', '=', self.id)],
+            'domain': [('vehicle_id','=', vehicle.id),('state','=', 'done')],
             'context': "{'create': False}"
         }
 
     def _pdr_outgoing_count(self):
         for record in self:
-            repairs = self.env['repair.order'].search([
-                ('vehicle_id', '=', self.id)
-            ])  
+            repairs = self.env['repair.order'].search([('vehicle_id','=', vehicle.id),('state','=', 'done')])  
             costs = repairs.mapped('amount_total')
             total_cost = sum(costs)
             record.pdr_outgoing = total_cost
@@ -84,8 +82,10 @@ class FleetVehicle(models.Model):
 
     def _deliveries_count(self):
         for record in self:
-            record.deliveries_vehicle_count = self.env['stock.picking'].search_count(
-                [('vehicle_id', '=', self.id),('is_pdr', '=', False),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')])
+            deliveries = self.env['stock.picking'].search([('vehicle_id', '=', self.id),('is_pdr', '=', False),('state', '=', 'done'),('picking_type_id.code', '=', 'outgoing')])  
+            costs = deliveries.mapped('somme')
+            total_cost = sum(costs)
+            record.deliveries_vehicle_count = total_cost
 
     
     
