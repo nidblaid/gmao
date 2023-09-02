@@ -35,7 +35,7 @@ class StockPicking(models.Model):
     def _compute_total_cost(self):
         for picking in self:
             total_cost = sum(move.quantity_done for move in picking.move_ids_without_package)
-            picking.somme = total_cost * shipping_cost
+            picking.somme = total_cost * picking.shipping_cost
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
