@@ -40,8 +40,8 @@ class UpdateResults(models.TransientModel):
             total_pdr_outgoing = self.env['repair.order'].search([('vehicle_id','=', vehicle.id),('state','=', 'done')]).mapped('amount_total')
         
             values = {
-                'deliveries': 100,
-                'pdr_outgoing': 100,
+                'deliveries': sum(total_deliveries),
+                'pdr_outgoing': sum(total_pdr_outgoing),
                 
             }
             if vehicle_record:
