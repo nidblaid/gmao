@@ -45,7 +45,7 @@ class UpdateResults(models.TransientModel):
                 
             }
             if vehicle_record:
-                gmao_analytics.write(values)
+                vehicle_record.write(values)
             else:
                 values['name'] = vehicle.id
                 gmao_analytics.create(values)
