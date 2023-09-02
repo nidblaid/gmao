@@ -34,8 +34,8 @@ class StockPicking(models.Model):
     @api.depends('move_ids_without_package.cost')
     def _compute_total_cost(self):
         for picking in self:
-            total_cost = sum(move.cost for move in picking.move_ids_without_package)
-            picking.somme = total_cost
+            total_cost = sum(move.quantity_done for move in picking.move_ids_without_package)
+            picking.somme = total_cost * shipping_cost
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
