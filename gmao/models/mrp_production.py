@@ -31,7 +31,7 @@ class StockPicking(models.Model):
     somme = fields.Float(string='Somme des coûts', compute='_compute_total_cost')
     shipping_cost = fields.Float(string='Frais de Transport (m3)', related='sale_id.shipping_cost')
 
-    @api.depends('move_ids_without_package.cost')
+    @api.depends('move_ids_without_package.quantity_done')
     def _compute_total_cost(self):
         for picking in self:
             total_cost = sum(move.quantity_done for move in picking.move_ids_without_package)
