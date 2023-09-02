@@ -6,6 +6,11 @@ class MrpProduction(models.Model):
 
     gmao_id = fields.Many2one('gmao.model', string="Gmao ID")
 
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    shipping_cost = fields.Float(string="Frais de Transport (m3)")
+
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
 
@@ -24,6 +29,7 @@ class StockPicking(models.Model):
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipement")
     is_pdr = fields.Boolean('is_pdr')
     somme = fields.Float(string='Somme des coûts', compute='_compute_total_cost')
+    shipping_cost = fields.Float(string='Frais de Transport (m3)', related='sale_id.shipping_cost')
 
     @api.depends('move_ids_without_package.cost')
     def _compute_total_cost(self):
