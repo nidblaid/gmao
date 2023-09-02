@@ -133,9 +133,10 @@
                 <field name="name">repair.order.custom.view</field>
                 <field name="model">repair.order</field>
                 <field name="inherit_id" ref="repair.view_repair_order_form"/>
+                <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
                 <field name="arch" type="xml">
                     <xpath expr="//field[@name='product_id']" position="attributes">
-                        <attribute name="required">False</attribute>
+                        <attribute name="readonly">True</attribute>
                     </xpath>
                 </field>
             </record>
