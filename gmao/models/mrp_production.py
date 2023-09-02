@@ -28,7 +28,7 @@ class StockPicking(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string="Véhicule")
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipement")
     is_pdr = fields.Boolean('is_pdr')
-    somme = fields.Float(string='Somme des coûts', compute='_compute_total_cost')
+    somme = fields.Float(string='Frais de Transport (BL)', compute='_compute_total_cost')
     shipping_cost = fields.Float(string='Frais de Transport (m3)', related='sale_id.shipping_cost')
 
     @api.depends('move_ids_without_package.quantity_done')
