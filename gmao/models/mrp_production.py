@@ -6,6 +6,11 @@ class MrpProduction(models.Model):
 
     gmao_id = fields.Many2one('gmao.model', string="Gmao ID")
 
+class ResPartnerInherit(models.Model):
+    _inherit = 'res.partner'
+
+    test = fields.Char('test')
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
