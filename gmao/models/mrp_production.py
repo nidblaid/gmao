@@ -11,10 +11,6 @@ class SaleOrder(models.Model):
 
     shipping_cost = fields.Float(string="Frais de Transport (m3)")
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_salesperson = fields.Boolean('Is Salesperson')
 
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
