@@ -16,7 +16,6 @@ class ResUsers(models.Model):
 
     is_salesperson = fields.Boolean('Is Salesperson')
 
-
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
 
