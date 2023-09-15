@@ -50,26 +50,26 @@ class SaleOrder(models.Model):
                 order.total_in_company_currency = order.amount_total / order.currency_rate
 
     # computed field to calculate the delivery status : (Al rayyane case : studio field 'x_studio_delivery_status')
-    @api.depends('picking_ids.x_studio_delivery_status')
-    def _compute_delivery_status(self):
-        for order in self:
-            if order.delivery_count >= 1 :
-                all_delivered = all(picking.x_studio_delivery_status == 'Delivered' for picking in order.picking_ids)
-                if all_delivered:
-                    order.delivery_status = 'delivered'
-                else:
-                    order.delivery_status = 'not_delivered'
-
-    # General case : based on odoo base fields
-    # @api.depends('picking_ids.state')
+    # @api.depends('picking_ids.x_studio_delivery_status')
     # def _compute_delivery_status(self):
     #     for order in self:
     #         if order.delivery_count >= 1 :
-    #             all_delivered = all(picking.state == 'done' for picking in order.picking_ids)
+    #             all_delivered = all(picking.x_studio_delivery_status == 'Delivered' for picking in order.picking_ids)
     #             if all_delivered:
     #                 order.delivery_status = 'delivered'
     #             else:
     #                 order.delivery_status = 'not_delivered'
+
+    # General case : based on odoo base fields
+    @api.depends('picking_ids.state')
+    def _compute_delivery_status(self):
+        for order in self:
+            if order.delivery_count >= 1 :
+                all_delivered = all(picking.state == 'done' for picking in order.picking_ids)
+                if all_delivered:
+                    order.delivery_status = 'delivered'
+                else:
+                    order.delivery_status = 'not_delivered'
     
 
     # Override the create method : set the lead_type based on opportunity_id
