@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="update_results_view_form" model="ir.ui.view">
+            <field name="name">update.results.form</field>
+            <field name="model">update.results</field>
+            <field name="arch" type="xml">
+                <form string="Update results">
+                    <group class="oe_title">
+                        <field name="start_date" required="1"/>
+                        <field name="end_date" stirng="Today"/>
+                        <field name="periode"/>
+                        <field name="country_id"/>
+                        <field name="source_id"/>
+                    </group>
+                    <footer>
+                        <button name="update_results" string="Submit" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_results" model="ir.actions.act_window">
+            <field name="name">Update Results</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">update.results</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="update_results_view_form"/>
+            <field name="target">new</field>
+        </record>
+</odoo>
